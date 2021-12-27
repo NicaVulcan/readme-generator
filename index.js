@@ -1,5 +1,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
+const { resolve } = require("path");
+const { rejects } = require("assert");
 
 const questions = [
     {
@@ -111,8 +113,31 @@ const questions = [
 ];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-    
+function writeToFile(data) {
+    const { title, description, ...tableOfCont } = data;
+    return `
+# ${title}
+## ${description}
+## Table of Contents
+- [Installation](##-Installation)
+- [Usage](##-Usage)
+- [License](##-License)
+- [Contributing](##-Contributing)
+- [Tests](##-Tests)
+- [Questions](##-Questions)
+## Installation
+${tableOfCont.install}
+## Usage
+${tableOfCont.usage}
+## License
+${tableOfCont.license}
+## Contributing
+${tableOfCont.contributions}
+## Tests
+${tableOfCont.tests}
+## Questions
+${tableOfCont.questions}
+`
 }
 
 // TODO: Create a function to initialize app
@@ -123,6 +148,21 @@ function init() {
 
 // Function call to initialize app
 init()
-    .then(userInput => {
-        console.log(userInput);
+    .then( userInput => {
+        return writeToFile(userInput);
+    })
+    .then( writtenFile => {
+        return new Promise((resolve, reject) => {
+            fs.writeFile("./dist/README.md", writtenFile, err => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                resolve ({
+                    ok: true,
+                    message: "File Created!"
+                });
+            });
+        });
     });
+    
