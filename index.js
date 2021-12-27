@@ -1,7 +1,5 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-const { resolve } = require("path");
-const { rejects } = require("assert");
 
 const questions = [
     {
@@ -117,7 +115,8 @@ function writeToFile(data) {
     const { title, description, ...tableOfCont } = data;
     return `
 # ${title}
-## ${description}
+## Description
+${description}
 ## Table of Contents
 - [Installation](##-Installation)
 - [Usage](##-Usage)
@@ -157,11 +156,9 @@ init()
                 if (err) {
                     reject(err);
                     return;
+                } else {
+                    console.log("README created!");
                 }
-                resolve ({
-                    ok: true,
-                    message: "File Created!"
-                });
             });
         });
     });
