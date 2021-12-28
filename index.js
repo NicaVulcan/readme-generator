@@ -1,11 +1,12 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 
+// questions + validations
 const questions = [
     {
         type: "input",
         name: "title",
-        message: "Title of your project",
+        message: "Title of your project:",
         validate: titleInput => {
             if (titleInput) {
                 return true;
@@ -18,7 +19,7 @@ const questions = [
     {
         type: "input",
         name: "description",
-        message: "Project description",
+        message: "Describe your project:",
         validate: descriptionInput => {
             if (descriptionInput) {
                 return true;
@@ -31,7 +32,7 @@ const questions = [
     {
         type: "input",
         name: "install",
-        message: "Installation instructions",
+        message: "Installation instructions:",
         validate: installInput => {
             if (installInput) {
                 return true;
@@ -45,7 +46,7 @@ const questions = [
     {
         type: "input",
         name: "usage",
-        message: "Usage instructions",
+        message: "Application instructions:",
         validate: usageInput => {
             if (usageInput) {
                 return true;
@@ -58,7 +59,7 @@ const questions = [
     {
         type: "checkbox",
         name: "license",
-        message: "Project license (Choose one)",
+        message: "Choose one license for your project",
         choices: ["Apache License 2.0", "GNU General Public Lincese v3.0", "MIT License", "BSD 2-Clause 'Simplififed' License", "BSD 3-Clause 'New' or 'Revised' License", "Boost Software License 1.0", "Creative Commons Zero v1.0 Universal", "Eclipse Public License 2.0", "GNU Affero General Public License v3.0", "GNU General Public License v.2.0", "GNU Lesser General Public License v2.1", "Mozilla Public License 2.0", "The Unlicense"],
         validate: licenseInput => {
             if (licenseInput) {
@@ -71,21 +72,21 @@ const questions = [
     },
     {
         type: "input",
-        name: "contribution",
-        message: "Names of contributors, separated by commas",
+        name: "contributing",
+        message: "How do you wish to handle contributions to your project?",
         validate: nameInput => {
             if (nameInput) {
                 return true;
             } else {
-                console.log("Please enter your name!");
+                console.log("Please enter contribution instructions");
                 return false;
             }
         }
     },
-    {// not really sure what to put here yet
+    {
         type: "input",
         name: "tests",
-        message: "Project tests",
+        message: "Testing instructions:",
         validate: testsInput => {
             if (testsInput) {
                 return true;
@@ -103,18 +104,25 @@ const questions = [
             if (questionsInput) {
                 return true;
             } else {
-                console.log("Please enter your name!");
+                console.log("Please add instructions for testing!");
                 return false;
             }
         }
     },
 ];
 
-// TODO: Create a function to write README file
+// create license badge
+function licBadge(license) {
+    let chosenLic = license[0];
+    console.log(chosenLic);
+};
+
+// README template
 function writeToFile(data) {
-    const { title, description, ...tableOfCont } = data;
+    const { title, description, install, usage, license, contributing, tests, questions } = data;
     return `
 # ${title}
+![License](https://img.shields.io/badge/License-${licBadge(license)}-green.svg)
 ## Description
 ${description}
 ## Table of Contents
@@ -125,27 +133,26 @@ ${description}
 - [Tests](##-Tests)
 - [Questions](##-Questions)
 ## Installation
-${tableOfCont.install}
+${install}
 ## Usage
-${tableOfCont.usage}
+${usage}
 ## License
-${tableOfCont.license}
+${license}
 ## Contributing
-${tableOfCont.contributions}
+${contributing}
 ## Tests
-${tableOfCont.tests}
+${tests}
 ## Questions
-${tableOfCont.questions}
+Please reach me at ${questions} for any questions!
 `
-}
+};
 
-// TODO: Create a function to initialize app
+// Initialize app
 function init() {
     return inquirer
         .prompt(questions);
-}
+};
 
-// Function call to initialize app
 init()
     .then( userInput => {
         return writeToFile(userInput);
