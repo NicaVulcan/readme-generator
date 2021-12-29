@@ -99,7 +99,7 @@ const questions = [
     {
         type: "input",
         name: "questions",
-        message: "Contact information",
+        message: "Email address:",
         validate: questionsInput => {
             if (questionsInput) {
                 return true;
@@ -114,7 +114,49 @@ const questions = [
 // create license badge
 function licBadge(license) {
     let chosenLic = license[0];
-    console.log(chosenLic);
+    let badgeName;
+    switch (chosenLic) {
+        case "Apache License 2.0":
+            badgeName = "Apache--2.0";
+            break;
+        case "GNU General Public Lincese v3.0":
+            badgeName = "GPL--3.0";
+            break;
+        case "MIT License":
+            badgeName = "MIT";
+            break;
+        case "BSD 2-Clause 'Simplififed' License":
+            badgeName = "BSD--2--Clause";
+            break;
+        case "BSD 3-Clause 'New' or 'Revised' License":
+            badgeName = "BSD--3--Clause";
+            break;
+        case "Boost Software License 1.0":
+            badgeName = "BSL--1.0";
+            break;
+        case "Creative Commons Zero v1.0 Universal":
+            badgeName = "CC0--1.0";
+            break;
+        case "Eclipse Public License 2.0":
+            badgeName = "EPL--2.0";
+            break;
+        case "GNU Affero General Public License v3.0":
+            badgeName = "AGPL--3.0";
+            break;
+        case "GNU General Public License v.2.0":
+            badgeName = "GPL--2.0";
+            break;
+        case "GNU Lesser General Public License v2.1":
+            badgeName = "LGPL--2.1";
+            break;
+        case "Mozilla Public License 2.0":
+            badgeName = "MPL--2.0";
+            break;
+        case "The Unlicense":
+            badgeName = "Unlicense";
+            break;
+    }
+    return badgeName;
 };
 
 // README template
@@ -153,6 +195,7 @@ function init() {
         .prompt(questions);
 };
 
+// Call function to initialize app, use input to fill template, create README file
 init()
     .then( userInput => {
         return writeToFile(userInput);
