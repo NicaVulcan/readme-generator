@@ -62,10 +62,10 @@ const questions = [
         message: "Choose one license for your project",
         choices: ["Apache License 2.0", "GNU General Public Lincese v3.0", "MIT License", "BSD 2-Clause 'Simplififed' License", "BSD 3-Clause 'New' or 'Revised' License", "Boost Software License 1.0", "Creative Commons Zero v1.0 Universal", "Eclipse Public License 2.0", "GNU Affero General Public License v3.0", "GNU General Public License v.2.0", "GNU Lesser General Public License v2.1", "Mozilla Public License 2.0", "The Unlicense"],
         validate: licenseInput => {
-            if (licenseInput) {
+            if (licenseInput.length === 1) {
                 return true;
             } else {
-                console.log("Please choose a license for your program!");
+                console.log("Please choose ONE license for your program!");
                 return false;
             }
         }
@@ -179,7 +179,7 @@ ${install}
 ## Usage
 ${usage}
 ## License
-${license}
+${license[0]}
 ## Contributing
 ${contributing}
 ## Tests
@@ -197,10 +197,10 @@ function init() {
 
 // Call function to initialize app, use input to fill template, create README file
 init()
-    .then( userInput => {
+    .then(userInput => {
         return writeToFile(userInput);
     })
-    .then( writtenFile => {
+    .then(writtenFile => {
         return new Promise((resolve, reject) => {
             fs.writeFile("./dist/README.md", writtenFile, err => {
                 if (err) {
@@ -212,4 +212,4 @@ init()
             });
         });
     });
-    
+
