@@ -168,12 +168,12 @@ function writeToFile(data) {
 ## Description
 ${description}
 ## Table of Contents
-- [Installation](##-Installation)
-- [Usage](##-Usage)
-- [License](##-License)
-- [Contributing](##-Contributing)
-- [Tests](##-Tests)
-- [Questions](##-Questions)
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [Questions](#questions)
 ## Installation
 ${install}
 ## Usage
