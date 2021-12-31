@@ -91,24 +91,37 @@ const questions = [
             if (testsInput) {
                 return true;
             } else {
-                console.log("Please enter your project tests!");
+                console.log("Please enter testing instructions for your application!");
                 return false;
             }
         }
     },
     {
         type: "input",
-        name: "questions",
-        message: "Email address:",
-        validate: questionsInput => {
-            if (questionsInput) {
+        name: "gitHub",
+        message: "GitHub UserName:",
+        validate: gitHubInput => {
+            if (gitHubInput) {
                 return true;
             } else {
-                console.log("Please add instructions for testing!");
+                console.log("Please enter your GitHub username!");
                 return false;
             }
         }
     },
+    {
+        type: "input",
+        name: "email",
+        message: "Email address:",
+        validate: emailInput => {
+            if (emailInput) {
+                return true;
+            } else {
+                console.log("Please enter your email address!");
+                return false;
+            }
+        }
+    }
 ];
 
 // create license badge
@@ -161,7 +174,7 @@ function licBadge(license) {
 
 // README template
 function writeToFile(data) {
-    const { title, description, install, usage, license, contributing, tests, questions } = data;
+    const { title, description, install, usage, license, contributing, tests, gitHub, email } = data;
     return `
 # ${title}
 ![License](https://img.shields.io/badge/License-${licBadge(license)}-green.svg)
@@ -185,7 +198,8 @@ ${contributing}
 ## Tests
 ${tests}
 ## Questions
-Please reach me at ${questions} for any questions!
+My GitHub Profile: [${gitHub}](https://github.com/${gitHub}). 
+Please reach me at ${email} for questions!
 `
 };
 

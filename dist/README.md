@@ -21,4 +21,5 @@ Issues should be created for proposed changes. Pull requests should be created f
 ## Tests
 There are currently no tests available for this application.
 ## Questions
-Please reach me at eeeemailsample@mail.com for any questions!
+My GitHub Profile: [NicaVulcan](https://github.com/NicaVulcan). 
+Please reach me at sample@email.com for questions!
